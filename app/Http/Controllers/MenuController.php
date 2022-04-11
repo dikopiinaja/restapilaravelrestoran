@@ -17,7 +17,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menu = Menu::orderBy('total_sales', 'DESC')->get();
+        $menu = Menu::orderBy('id', 'DESC')->get();
         $response = [
             'message' => 'List menu order by favorite',
             'data' => $menu
@@ -42,29 +42,13 @@ class MenuController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'price' => ['required', 'numeric'],
-            'total_sales' => ['required', 'numeric'],
+            'category' => ['required'],
             'desc' => ['required']
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(),Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        // if ($image = $request->file('images')) {
-
-        //     $images = $image->store('public/documents');
-        //     $images = $image->getClientOriginalName();
-
-        //     $save = new Menu();
-        //     $save->save();
-
-        //     return response()->json([
-        //         "success" => true,
-        //         "message" => "Menu Created!!",
-        //         "menu" => $menu
-        //     ]);
-        // }
-        try {
+        } try {
             $menu = Menu::create($request->all());
             $response = [
                 'message' => 'Menu created',
@@ -109,9 +93,8 @@ class MenuController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'price' => ['required', 'numeric'],
-            'total_sales' => ['required', 'numeric'],
-            'desc' => ['required'],
+            'category' => ['required'],
+            'desc' => ['required']
         ]);
 
         if ($validator->fails()) {

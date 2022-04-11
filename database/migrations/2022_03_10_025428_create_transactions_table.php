@@ -16,9 +16,16 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->integer('qty');
             $table->double('amount');
             $table->timestamp('time')->default(now());
-            $table->enum('type', ['expense', 'revenue']);
+            $table->enum('type', ['offline', 'online']);
+            
+            $table->foreignId('menu_id')
+            ->constrained('menus')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

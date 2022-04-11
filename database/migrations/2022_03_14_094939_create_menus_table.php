@@ -16,8 +16,7 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('price');
-            $table->integer('total_sales');
+            $table->enum('category', ['Makanan Utama', 'Makanan Ringan']);
             $table->text('desc');
             $table->timestamps();
         });
